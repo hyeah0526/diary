@@ -2,7 +2,7 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="java.net.*" %>
 <%@ page import="java.util.*" %>
-<%
+<%  
 	/* -------------------------로그인(인증) 분기---------------------------------- */
 	// diary.login.my_session => 'OFF' => redirect("loginForm.jsp")
 	// DB이름.테이블이름.컬럼이름의 값이 'OFF'일때 loginForm.jsp로 보냄
