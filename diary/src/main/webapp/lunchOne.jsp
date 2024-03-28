@@ -112,7 +112,7 @@
 <div class="container fontAll">
 	<!-- 시작윗부분 -->
 	<div class="row">
-		<div class="col mt-5" style="text-align: center;"><h1>런치 통계</h1></div>
+		<div class="col mt-5" style="text-align: center;"><h1>점심 투표</h1></div>
 	</div>
 	
 	<!-- 시작윗부분 -->
@@ -133,7 +133,7 @@
 					String day = diaryDate.substring(8,10);
 			%>
 					<div class="mt-3 fs-4">
-						투표결과가 존재합니다!<br>
+						투표가 완료되었습니다.<br>
 						<%=year%>년 <%=month%>월 <%=day%>일&nbsp;
 						점심메뉴는 '<%=rs2.getString("menu")%>'입니다.
 					</div><br>

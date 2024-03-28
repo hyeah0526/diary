@@ -100,7 +100,7 @@
 <div class="container fontAll">
 	<!-- 시작윗부분 -->
 	<div class="row">
-		<div class="col mt-5" style="text-align: center;"><h1>런치 통계</h1></div>
+		<div class="col mt-5" style="text-align: center;"><h1>점심 통계</h1></div>
 	</div>
 	
 	<!-- 시작윗부분 -->
@@ -130,8 +130,10 @@
 			<table style="width: 500px; margin-left: auto; margin-right: auto;">
 				<tr>
 					<%	
-						String[] c = {"#FF0000", "#FF5E00", "#FFE400", "#1DDB16", "#0054FF"};
+						String[] c = {"#FF4848", "#FFF136", "#53FF4C", "#36FFFF", "#2524FF"};
 						int i = 0;
+						int maxCnt = 0;
+						String maxLunch = null;
 						while(rs2.next()){
 							int h = (int)(maxHeight * (rs2.getInt("cnt")/totalCnt));
 							
@@ -144,8 +146,20 @@
 								</div>
 							</td>
 					<%		
-							i = i+1;		
+						if(maxCnt == 0){
+							maxCnt = maxCnt+rs2.getInt("cnt");
+							maxLunch = rs2.getString("menu");
+						}else if(rs2.getInt("cnt") > maxCnt){
+							maxCnt = rs2.getInt("cnt");
+							maxLunch = rs2.getString("menu");
+						}else if(rs2.getInt("cnt") == maxCnt){
+							maxCnt = rs2.getInt("cnt");
+							maxLunch = maxLunch+"과(와) "+rs2.getString("menu");
 						}
+							i = i+1;		
+							
+						}
+						System.out.println(maxCnt);
 					%>
 				</tr>
 				<tr>
@@ -153,12 +167,24 @@
 						rs2.beforeFirst(); //다시 처음으로 초기치 셋팅
 						while(rs2.next()){
 					%>
-							<td><%=rs2.getString("menu")%></td>
+							<td class="fs-5"><%=rs2.getString("menu")%></td>
 					<%		
 						}
+						rs2.beforeFirst(); //다시 처음으로 초기치 셋팅
 					%>
 				</tr>
 			</table>
+			<div class="fs-5"><br>
+				<%
+					while(rs2.next()){
+				%>
+						<div><%=rs2.getString("menu")%> -  <%=rs2.getInt("cnt")%>번<br></div>
+						
+				<%
+					} 
+				%>
+				식사하였으며, '<%=maxLunch%>'이(가) <%=maxCnt%>번으로 제일 많은 투표를 받았습니다.
+			</div>
 			</div>
 			
 		</div>
