@@ -113,8 +113,10 @@
 		<div class="col"></div>
 		<div class="col-8">
 			<a href="/diary/diary.jsp"><img src="/diary/img/dairy.png" class="icon"></a>&nbsp;&nbsp;&nbsp;
-			<a href="/diary/dairyList.jsp"><img src="/diary/img/list.png" class="icon"></a>&nbsp;&nbsp;&nbsp;
-			<a href="/diary/logout.jsp"><img src="/diary/img/logout.png" class="icon"></a>
+			<a href="/diary/diaryList.jsp"><img src="/diary/img/list.png" class="icon"></a>&nbsp;&nbsp;&nbsp;
+			<a href="/diary/addDiaryForm.jsp"><img src="/diary/img/dairy_pen.png" class="icon"></a>&nbsp;&nbsp;&nbsp;
+			<a href="/diary/statsLunch.jsp"><img src="/diary/img/lunch.png" class="icon"></a>&nbsp;&nbsp;&nbsp;
+			<a href="/diary/logout.jsp"><img src="/diary/img/logout.png" class="icon"></a><br><br>
 			
 			<br>디버깅 코드 확인용 <br>
 			checkDate :: <%=checkDate%><br>
