@@ -160,6 +160,7 @@
 			}
 	%>
 		</div>
+		
 		<div class="col"></div>
 	</div>
 	
@@ -167,6 +168,7 @@
 	<div class="row text-center">
 		<div class="col"></div>
 		<div class="col fs-4">
+			<a class="addDiaryBtn btn" href="/diary/lunchOne.jsp?diaryDate=<%=diaryDate%>">점심투표</a>
 			<a class="addDiaryBtn btn" href="/diary/updateDiaryForm.jsp?diaryDate=<%=diaryDate%>">수정하기</a>
 			<a class="addDiaryBtn btn"  href="/diary/deleteDiaryAction.jsp?diaryDate=<%=diaryDate%>">삭제하기</a>
 		</div>

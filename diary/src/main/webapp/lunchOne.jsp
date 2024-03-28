@@ -42,22 +42,27 @@
 	/* -------------------------여기까지 로그인(인증)분기------------------------------ */
 %>
 <%
-	/* -------------------------여기부터 통계데이터 가져오기------------------------------ */
+	/* -------------------------여기부터 런치 투표값이 있는지 확인------------------------------ */
+	//변수값 가져오기
+	String diaryDate = request.getParameter("diaryDate");
+	String msg = request.getParameter("msg");
+	System.out.println(diaryDate+" <--diaryDate lunchOne.jsp");
+	
+	//해당날짜에 런치투표했는지 확인하기
 	/*
-		SELECT menu, COUNT(*) 
+		SELECT * 
 		FROM lunch
-		WHERE YEAR(lunch_Date) = 2024
-		GROUP BY menu
-		ORDER BY COUNT(*) DESC;
+		WHERE lunch_date = '2024-03-14';
 	*/
-	String sql2 = "select menu, count(*) cnt from lunch group by menu";
+	String sql2 = "select * from lunch where lunch_date = ?";
 	PreparedStatement stmt2 = null;
 	ResultSet rs2 = null;
 	stmt2 = conn.prepareStatement(sql2);
+	stmt2.setString(1, diaryDate);
 	rs2 = stmt2.executeQuery();
-		
+	System.out.println(stmt2);
 	
-	/* -------------------------여기까지 통계데이터 가져오기------------------------------ */
+	/* -------------------------여기까지 런치 투표값이 있는지 확인----------------------------- */
 %>
 <!DOCTYPE html>
 <html>
@@ -94,6 +99,13 @@
 			width: 40px;
 			height: 40px;
 		}
+		.addDiaryBtn{
+			background-color: transparent;
+			color: #CEB9AB;
+			border: 2px solid #CEB9AB;
+			padding-top : 10px;
+			border-radius: 10px;
+		}
 	</style>
 </head>
 <body class="backImg">
@@ -114,52 +126,59 @@
 			<a href="/diary/statsLunch.jsp"><img src="/diary/img/lunch.png" class="icon"></a>&nbsp;&nbsp;&nbsp;
 			<a href="/diary/logout.jsp"><img src="/diary/img/logout.png" class="icon"></a><br><br>
 			
-			<!-- 런치 전체 투표 수 -->
 			<%
-				double maxHeight = 300; //최대 세로길이 설정
-				double totalCnt = 0; //전체 Cnt 수
-				while(rs2.next()){ //전체 투표수 구하기
-					totalCnt = totalCnt+rs2.getInt("cnt");
-				}
-				rs2.beforeFirst(); //초기값으로 초기화!
+				if(rs2.next()){ //만약 투표결과가 존재할 경우 투표결과 보여주기
+					String year = diaryDate.substring(0,4);
+					String month = diaryDate.substring(5,7);
+					String day = diaryDate.substring(8,10);
 			%>
-			<div class="fs-4">전체 투표수 : <%=(int)totalCnt%></div>
-			
-			<!-- 런치 통계 -->
-			<div class="" style="text-align: center;">
-			<table style="width: 500px; margin-left: auto; margin-right: auto;">
-				<tr>
-					<%	
-						String[] c = {"#FF0000", "#FF5E00", "#FFE400", "#1DDB16", "#0054FF"};
-						int i = 0;
-						while(rs2.next()){
-							int h = (int)(maxHeight * (rs2.getInt("cnt")/totalCnt));
+					<div class="mt-3 fs-4">
+						투표결과가 존재합니다!<br>
+						<%=year%>년 <%=month%>월 <%=day%>일&nbsp;
+						점심메뉴는 '<%=rs2.getString("menu")%>'입니다.
+					</div><br>
+					<div>
+						<a class="addDiaryBtn btn" href="/diary/deleteLunchAction.jsp?diaryDate=<%=diaryDate%>">메뉴 삭제</a>&nbsp;&nbsp;
+						<a class="addDiaryBtn btn" href="/diary/statsLunch.jsp">전체 통계</a>
+					</div>
+			<%
+				}else{ //만약 투표 결과가 없다면 투표창 보여주기
+			%>
+					<div class="fs-4">점심메뉴 선택</div>
+			<%
+					if(msg == null){
+			%>
+						<div class="fs-5"></div>
+			<%			
+					}else if(msg.equals("delete done")){
+			%>
+						<div class="fs-5">삭제 성공하였습니다. 다시 선택해주세요.</div>
+			<%
+					}
+			%>
+					<div>
+						<form method="post" action="/diary/addLunchAction.jsp?diaryDate=<%=diaryDate%>">
+							<input type="radio" name="menu" class="m-3" value="양식" id="menu1">&nbsp;
+								<label for="menu1" class="fs-5">양식</label><br>
+								
+							<input type="radio" name="menu" class="m-3 fs-3" value="일식" id="menu2">&nbsp;
+								<label for="menu2" class="fs-5">일식</label><br>
+								
+							<input type="radio" name="menu" class="m-3 fs-3" value="중식" id="menu3">&nbsp;
+								<label for="menu3" class="fs-5">중식</label><br>
 							
-					%>
-							<td style="vertical-align: bottom;">
-								<div style="height: <%=h%>px;
-											 background-color: <%=c[i]%>;
-											 text-align: center;">
-									<%=rs2.getInt("cnt")%>
-								</div>
-							</td>
-					<%		
-							i = i+1;		
-						}
-					%>
-				</tr>
-				<tr>
-					<%
-						rs2.beforeFirst(); //다시 처음으로 초기치 셋팅
-						while(rs2.next()){
-					%>
-							<td><%=rs2.getString("menu")%></td>
-					<%		
-						}
-					%>
-				</tr>
-			</table>
-			</div>
+							<input type="radio" name="menu" class="m-3 fs-3" value="한식" id="menu4">&nbsp;
+								<label for="menu4" class="fs-5">한식</label><br>
+							
+							<input type="radio" name="menu" class="m-3 fs-3" value="기타" id="menu5">&nbsp;
+								<label for="menu5" class="fs-5">기타</label><br><br>
+								
+							<button class="addDiaryBtn btn">선택 완료</button>
+						</form>
+					</div>
+			<%
+				}
+			%>
 			
 		</div>
 		<div class="col"></div>
