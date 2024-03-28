@@ -98,7 +98,6 @@
 	System.out.println(stmt2);
 	
 	rs2 = stmt2.executeQuery();
-	
 %>
 <!DOCTYPE html>
 <html>
