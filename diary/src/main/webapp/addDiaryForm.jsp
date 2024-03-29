@@ -119,7 +119,7 @@
 			<!-- 일기작성이 가능하다면 작성하는 폼 -->
 			<h3>일기 작성하기</h3>
 			<form method="post" action="/diary/addDiaryAction.jsp">
-					<div class="col">날짜&nbsp;&nbsp;
+					<div class="col fs-5">날짜&nbsp;&nbsp;
 					<%
 						if(ck.equals("true")){
 					%>
@@ -147,26 +147,26 @@
 				
 				<div class="col fs-5">기분&nbsp;&nbsp;
 					<input type="radio" name="feeling" value="&#128512;" id="feeling1">
-						<label for="feeling1">&#128512;</label>&nbsp;&nbsp;&nbsp;
+						<label for="feeling1" class="fs-3">&#128512;</label>&nbsp;&nbsp;&nbsp;
 						
 					<input type="radio" name="feeling" value="&#128520;" id="feeling2">
-						<label for="feeling2">&#128520;</label>&nbsp;&nbsp;&nbsp;
+						<label for="feeling2" class="fs-3">&#128520;</label>&nbsp;&nbsp;&nbsp;
 						
 					<input type="radio" name="feeling" value="&#128567;" id="feeling3">
-						<label for="feeling3">&#128567;</label>&nbsp;&nbsp;&nbsp;
+						<label for="feeling3" class="fs-3">&#128567;</label>&nbsp;&nbsp;&nbsp;
 						
 					<input type="radio" name="feeling" value="&#128561;" id="feeling4">
-						<label for="feeling4">&#128561;</label>&nbsp;&nbsp;&nbsp;
+						<label for="feeling4" class="fs-3">&#128561;</label>&nbsp;&nbsp;&nbsp;
 						
 					<input type="radio" name="feeling" value="&#128546;" id="feeling5">
-						<label for="feeling5">&#128546;</label>&nbsp;&nbsp;&nbsp;
+						<label for="feeling5" class="fs-3">&#128546;</label>&nbsp;&nbsp;&nbsp;
 						
 					<input type="radio" name="feeling" value="&#128564;" id="feeling6">
-						<label for="feeling6">&#128564;</label>
+						<label for="feeling6" class="fs-3">&#128564;</label>
 				</div><br>
 				
 				<div class="col fs-5">내용
-					<textarea rows="7" cols="50" name="content" style="width: 100%;" class="contentTextarea fs-5"></textarea>
+					<textarea rows="7" cols="50" name="content" style="width: 100%;" class="contentTextarea fs-5 text-center"></textarea>
 				</div>
 				
 				<div>

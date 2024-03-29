@@ -157,7 +157,12 @@
 				</div><br>
 				
 				<div class="row">
-					<div class="col mt-3"><div class="divContent"><%=rs2.getString("content")%></div></div>
+					<%
+						//엔터 치환하기 .replace("\r\n", "<br>")
+						String contentChange = rs2.getString("content");
+						contentChange = contentChange.replace("\r\n", "<br>");
+					%>
+					<div class="col mt-3"><div class="divContent"><%=contentChange%></div></div>
 				</div><br>
 	<%
 			}
