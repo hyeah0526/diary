@@ -134,9 +134,9 @@
 						}
 					%>
 				</div>
-				<div class="col">제목&nbsp;&nbsp;<input type="text" name="title" class="dateInput"></div><br>
+				<div class="col fs-5">제목&nbsp;&nbsp;<input type="text" name="title" class="dateInput"></div><br>
 				
-				<div class="col">날씨&nbsp;&nbsp;
+				<div class="col fs-5">날씨&nbsp;&nbsp;
 					<select class="btn addDiaryBtn mb-2" name="weather" style="width: 100px;height: 40px;">
 						<option value="맑음">맑음</option>
 						<option value="흐림">흐림</option>
@@ -145,7 +145,27 @@
 					</select>
 				</div><br>
 				
-				<div class="col">내용
+				<div class="col fs-5">기분&nbsp;&nbsp;
+					<input type="radio" name="feeling" value="&#128512;" id="feeling1">
+						<label for="feeling1">&#128512;</label>&nbsp;&nbsp;&nbsp;
+						
+					<input type="radio" name="feeling" value="&#128520;" id="feeling2">
+						<label for="feeling2">&#128520;</label>&nbsp;&nbsp;&nbsp;
+						
+					<input type="radio" name="feeling" value="&#128567;" id="feeling3">
+						<label for="feeling3">&#128567;</label>&nbsp;&nbsp;&nbsp;
+						
+					<input type="radio" name="feeling" value="&#128561;" id="feeling4">
+						<label for="feeling4">&#128561;</label>&nbsp;&nbsp;&nbsp;
+						
+					<input type="radio" name="feeling" value="&#128546;" id="feeling5">
+						<label for="feeling5">&#128546;</label>&nbsp;&nbsp;&nbsp;
+						
+					<input type="radio" name="feeling" value="&#128564;" id="feeling6">
+						<label for="feeling6">&#128564;</label>
+				</div><br>
+				
+				<div class="col fs-5">내용
 					<textarea rows="7" cols="50" name="content" style="width: 100%;" class="contentTextarea fs-5"></textarea>
 				</div>
 				

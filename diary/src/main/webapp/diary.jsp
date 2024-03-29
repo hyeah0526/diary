@@ -65,7 +65,7 @@
 /* -------------------------캘린더 코드 끝------------------------------ */
 /* -------------------------다이어리 목록 추출하기------------------------- */
 	// 1. DB에서 tYear와 tMonth에 해당되는 diary목록을 추철
-	String sql2 = "select diary_date diaryDate, day(diary_date) day, left(title,5) title from diary where year(diary_date)=? and month(diary_date)=?";
+	String sql2 = "select feeling, diary_date diaryDate, day(diary_date) day, left(title,5) title from diary where year(diary_date)=? and month(diary_date)=?";
 	PreparedStatement stmt2 = null;
 	ResultSet rs2 = null;
 	stmt2 = conn.prepareStatement(sql2);
@@ -210,7 +210,7 @@
 										if(rs2.getInt("day") == (i-startBlank)){
 						%>
 											<a href='/diary/diaryOne.jsp?diaryDate=<%=rs2.getString("diaryDate")%>' class="fontAll">
-												<%= rs2.getString("title")%>...
+												<%=rs2.getString("feeling")%><%= rs2.getString("title")%>...
 											</a></span><br> 
 						<%
 										break;
@@ -227,7 +227,7 @@
 										if(rs2.getInt("day") == (i-startBlank)){
 						%>
 											<a href='/diary/diaryOne.jsp?diaryDate=<%=rs2.getString("diaryDate")%>' class="fontAll">
-												<%= rs2.getString("title")%>...
+												<%=rs2.getString("feeling")%><%= rs2.getString("title")%>...
 											</a></span> 
 						<%
 											break;
@@ -242,7 +242,7 @@
 										if(rs2.getInt("day") == (i-startBlank)){
 						%>
 											<a href='/diary/diaryOne.jsp?diaryDate=<%=rs2.getString("diaryDate")%>' class="fontAll">
-												<%= rs2.getString("title")%>...
+												<%=rs2.getString("feeling")%><%= rs2.getString("title")%>...
 											</a></span><br> 
 						<%
 										break;

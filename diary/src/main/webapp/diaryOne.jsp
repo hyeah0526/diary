@@ -128,7 +128,7 @@
 				String day = diaryDate2.substring(8,10);
 	%>
 				<div class="row">
-					<div class="col mt-3"><div class="divBorder"><%=rs2.getString("title")%></div></div>
+					<div class="col mt-3"><div class="divBorder"><%=rs2.getString("title")%>&nbsp;<%=rs2.getString("feeling")%></div></div>
 				</div>
 				<div class="row">
 					<div class="col mt-3"><div class="divBorder">
@@ -136,6 +136,7 @@
 						<%=rs2.getString("weather")%>
 					</div></div>
 				</div><br>
+				
 				<div class="row">
 					<div class="col mt-3"><div class="divContent"><%=rs2.getString("content")%></div></div>
 				</div><br>
