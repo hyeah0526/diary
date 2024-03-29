@@ -74,6 +74,12 @@
 			width: 40px;
 			height: 40px;
 		}
+		.contentTextarea{
+			background-color: transparent;
+			color: #CEB9AB;
+			border: 2px solid #CEB9AB;
+		}
+		
 	</style>
 </head>
 <body class="backImg">
@@ -98,18 +104,20 @@
 			<%
 				if(rs2.next()){
 			%>
-					<div class="row">
-						<div class="col-2">날짜</div>
-						<div class="col"><input type="text" name="diaryDate" value="<%=diaryDate%>" readonly="readonly"></div>
-					</div>
-					<div class="row">
-						<div class="col-2">제목</div>
-						<div class="col"><input type="text" name="title" value="<%=rs2.getString("title")%>"></div>
-					</div>
+					<div class="row fs-5">
+						<div class="col">날짜
+							<input type="text" name="diaryDate" value="<%=diaryDate%>" readonly="readonly" class="dateInput mb-2">
+						</div>
+					</div><br>
 					
-					<div class="row">
-						<div class="col-2">날씨</div>
-						<div class="col">
+					<div class="row fs-5">
+						<div class="col">제목
+							<input type="text" name="title" value="<%=rs2.getString("title")%>" class="dateInput">
+						</div>
+					</div><br>
+					
+					<div class="row fs-5">
+						<div class="col">날씨
 							<select class="btn addDiaryBtn mb-2" name="weather" style="width: 100px;height: 40px;">
 								<option value="<%=rs2.getString("weather")%>"><%=rs2.getString("weather")%></option>
 								<option value="맑음">맑음</option>
@@ -118,12 +126,31 @@
 								<option value="눈">눈</option>
 							</select>
 						</div>
-					</div>
+					</div><br>
 					
-					<div class="row">
-						<div class="col-2">내용</div>
-						<div class="col">
-							<textarea rows="7" cols="50" name="content" style="width: 100%;"><%=rs2.getString("content")%></textarea>
+					<div class="col fs-5">기분&nbsp;&nbsp;
+						<input type="radio" name="feeling" value="&#128512;" id="feeling1">
+							<label for="feeling1">&#128512;</label>&nbsp;&nbsp;&nbsp;
+							
+						<input type="radio" name="feeling" value="&#128520;" id="feeling2">
+							<label for="feeling2">&#128520;</label>&nbsp;&nbsp;&nbsp;
+							
+						<input type="radio" name="feeling" value="&#128567;" id="feeling3">
+							<label for="feeling3">&#128567;</label>&nbsp;&nbsp;&nbsp;
+							
+						<input type="radio" name="feeling" value="&#128561;" id="feeling4">
+							<label for="feeling4">&#128561;</label>&nbsp;&nbsp;&nbsp;
+							
+						<input type="radio" name="feeling" value="&#128546;" id="feeling5">
+							<label for="feeling5">&#128546;</label>&nbsp;&nbsp;&nbsp;
+							
+						<input type="radio" name="feeling" value="&#128564;" id="feeling6">
+							<label for="feeling6">&#128564;</label>
+					</div><br>
+					
+					<div class="row fs-5">
+						<div class="col">내용
+							<textarea rows="7" cols="50" name="content" style="width: 100%;" class="contentTextarea fs-5"><%=rs2.getString("content")%></textarea>
 						</div>
 					</div>
 					
