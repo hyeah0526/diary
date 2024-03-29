@@ -32,8 +32,6 @@
 	if(request.getParameter("serachWord") != null){ //넘어온 페이지값이 있으면 그걸 담아줌
 		serachWord = request.getParameter("serachWord");
 	}
-	
-	
 	/*
 		SELECT diary_date diaryDate, title
 		FROM diary
@@ -79,16 +77,17 @@
 	if(rs3.next()){
 		totalRow = rs3.getInt("cnt");
 	}
-	int lastPage = totalRow / rowPerPage;
-	if(totalRow % rowPerPage != 0){
+	int lastPage = totalRow / selectRow;
+	if(totalRow % selectRow != 0){
 		lastPage = lastPage+1;
 	}
 	
-	//System.out.println(currentPage + " <--currentPage");
-	//System.out.println(rowPerPage + " <--rowPerPage");
-	//System.out.println(startRow + " <--startRow");
-	//System.out.println(lastPage + " <--lastPage");
-	//System.out.println(totalRow + " <--totalRow");
+	System.out.println(currentPage + " <--currentPage");
+	System.out.println(rowPerPage + " <--rowPerPage");
+	System.out.println(selectRow + " <--selectRow");
+	System.out.println(startRow + " <--startRow");
+	System.out.println(lastPage + " <--lastPage");
+	System.out.println(totalRow + " <--totalRow");
 	/* --------------------여기까지 리스트페이지 코드------------------------- */
 %>
 <!DOCTYPE html>
