@@ -53,6 +53,10 @@
 			color: #CEB9AB;
 		}
 		
+		a { text-decoration: none; color: #ff6f72;}
+		a:hover { color:#444236; }
+		a:visited { text-decoration: none;}
+		
 		.backImg{
 			width: 100%;
 			vertical-align: middle;
@@ -99,6 +103,21 @@
 			border: 2px solid #CEB9AB;
 			padding-top : 10px;
 			border-radius: 10px;
+		}
+		
+		.deleteBtn{
+			color: red;
+		}
+		
+		.commentWrite{
+			background-color: transparent;
+			color: #CEB9AB;
+			border: 2px dotted #CEB9AB;
+			border-radius: 10px;
+			padding-top: 7px;
+			width: 500px;
+			display: inline-block;
+			text-align: center;
 		}
 	</style>
 </head>
@@ -154,7 +173,44 @@
 		<div class="col fs-4">
 			<a class="addDiaryBtn btn" href="/diary/lunchOne.jsp?diaryDate=<%=diaryDate%>">점심투표</a>
 			<a class="addDiaryBtn btn" href="/diary/updateDiaryForm.jsp?diaryDate=<%=diaryDate%>">수정하기</a>
-			<a class="addDiaryBtn btn"  href="/diary/deleteDiaryAction.jsp?diaryDate=<%=diaryDate%>">삭제하기</a>
+			<a class="addDiaryBtn btn"  href="/diary/deleteDiaryAction.jsp?diaryDate=<%=diaryDate%>">삭제하기</a><br><br>
+		
+	<!-- 댓글추가 폼 -->
+			<form method="post" action="/diary/addCommentAction.jsp">
+				<input type="hidden" name="diaryDate" value="<%=diaryDate%>">
+				<textarea rows="2" cols="50" name="memo" class="commentWrite"></textarea>
+				<button type="submit" class="addDiaryBtn btn">댓글입력</button>
+			</form><hr>
+			
+	<!-- 댓글리스트 -->
+		<%
+			String sql3 = "select comment_no commentNo, memo, create_date createDate from comment where diary_date = ? order by update_date DESC";
+			PreparedStatement stmt3 = null;
+			ResultSet rs3 = null;
+			stmt3 = conn.prepareStatement(sql3);
+			stmt3.setString(1, diaryDate);
+			
+			rs3 = stmt3.executeQuery();
+		%>
+		<%
+			while(rs3.next()){
+		%>	
+				<div class="row">
+					<div class="col-7 fs-5">
+						<%=rs3.getString("memo")%>
+					</div>
+						
+					<div class="col fs-6">
+						<%=rs3.getString("createDate")%>
+					</div>
+						
+					<div class="col fs-4 deleteBtn">
+						<a href="/diary/deleteCommentAction.jsp?commentNo=<%=rs3.getInt("commentNo")%>&diaryDate=<%=diaryDate%>">X</a>
+					</div>
+				</div>
+		<%
+			}
+		%>
 		</div>
 		<div class="col"></div>
 	</div>
