@@ -3,43 +3,14 @@
 <%@ page import="java.net.*" %>
 <%@ page import="java.util.*" %>
 <%  
-	/* -------------------------로그인(인증) 분기---------------------------------- */
-	// diary.login.my_session => 'OFF' => redirect("loginForm.jsp")
-	// DB이름.테이블이름.컬럼이름의 값이 'OFF'일때 loginForm.jsp로 보냄
-	
-	String sql1 = "select my_session mySession from login";
-	//my_session을 mySession의 이름으로 가져옴
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
-	PreparedStatement stmt1 = null;
-	ResultSet rs1 = null;
-	stmt1 = conn.prepareStatement(sql1);
-	rs1 = stmt1.executeQuery();
-	
-	String mySession = null;
-	
-	if(rs1.next()){
-		mySession = rs1.getString("mySession");
-		System.out.println(mySession + "<--mySession"); 
-	}
-	
-	if(mySession.equals("OFF")){
+	/* -------------------------여기부터 로그인 인증분기 코드---------------------------------- */
+	String loginMember = (String)(session.getAttribute("loginMember"));
+	if(loginMember == null){
 		String errMsg = URLEncoder.encode("잘못된 접근입니다. 로그인 먼저 해주세요", "utf-8"); //한글 encode해주기
 		response.sendRedirect("/diary/loginForm.jsp?errMsg="+errMsg); //sendRedirect는 get방식이므로 errMsg는 주소뒤에 붙여서 가져가기
-		//자원반납
-		//rs1.close();
-		//stmt1.close();
-		//conn.close();
-		return; //코드 진행을 끝내는 문법 ex.메서드 바꿀 때return사용
+		return;
 	}
-	
-	
-	//if문에 걸렸으면 if문에서 반납을하고, if문에 걸리지 않으면 여기서 반납
-	//rs1.close();
-	//stmt1.close();
-	//conn.close();
-	/* -------------------------여기까지 로그인(인증)분기------------------------------ */
+	/* -------------------------여기까지 로그인 인증분기 코드---------------------------------- */
 %>
 <%
 	/* -------------------------여기부터 런치 투표값이 있는지 확인------------------------------ */
@@ -54,6 +25,9 @@
 		FROM lunch
 		WHERE lunch_date = '2024-03-14';
 	*/
+	Class.forName("org.mariadb.jdbc.Driver");
+	Connection conn = null;
+	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
 	String sql2 = "select * from lunch where lunch_date = ?";
 	PreparedStatement stmt2 = null;
 	ResultSet rs2 = null;

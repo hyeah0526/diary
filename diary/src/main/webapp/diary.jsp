@@ -2,47 +2,23 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="java.net.*" %>
 <%@ page import="java.util.*" %>
-<%  
-	/* -------------------------로그인(인증) 분기---------------------------------- */
-	// diary.login.my_session => 'OFF' => redirect("loginForm.jsp")
-	// DB이름.테이블이름.컬럼이름의 값이 'OFF'일때 loginForm.jsp로 보냄
-	
-	String sql1 = "select my_session mySession from login";
-	//my_session을 mySession의 이름으로 가져옴
+<%
 	Class.forName("org.mariadb.jdbc.Driver");
 	Connection conn = null;
 	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
-	PreparedStatement stmt1 = null;
-	ResultSet rs1 = null;
-	stmt1 = conn.prepareStatement(sql1);
-	rs1 = stmt1.executeQuery();
-	
-	String mySession = null;
-	
-	if(rs1.next()){
-		mySession = rs1.getString("mySession");
-		System.out.println(mySession + "<--mySession"); 
-	}
-	
-	if(mySession.equals("OFF")){
-		String errMsg = URLEncoder.encode("잘못된 접근입니다. 로그인 먼저 해주세요", "utf-8"); //한글 encode해주기
-		response.sendRedirect("/diary/loginForm.jsp?errMsg="+errMsg); //sendRedirect는 get방식이므로 errMsg는 주소뒤에 붙여서 가져가기
-		//자원반납
-		//rs1.close();
-		//stmt1.close();
-		//conn.close();
-		return; //코드 진행을 끝내는 문법 ex.메서드 바꿀 때return사용
-	}
-	
-	
-	//if문에 걸렸으면 if문에서 반납을하고, if문에 걸리지 않으면 여기서 반납
-	//rs1.close();
-	//stmt1.close();
-	//conn.close();
-	/* -------------------------여기까지 로그인(인증)분기------------------------------ */
 %>
 <%
-	/* -------------------------캘린더 코드 시작------------------------- */
+/* -------------------------여기부터 session 로그인(인증) 분기---------------------------------- */
+	String loginMember = (String)(session.getAttribute("loginMember"));
+	if(loginMember == null){
+		String errMsg = URLEncoder.encode("잘못된 접근입니다. 로그인 먼저 해주세요", "utf-8"); //한글 encode해주기
+		response.sendRedirect("/diary/loginForm.jsp?errMsg="+errMsg); //sendRedirect는 get방식이므로 errMsg는 주소뒤에 붙여서 가져가기
+		return;
+	}
+/* -------------------------여기까지 session 로그인(인증) 분기---------------------------------- */
+%>
+<%
+/* -------------------------------------캘린더 코드 시작------------------------------------- */
 	String targetYear = request.getParameter("targetYear"); //출력할 년도
 	String targetMonth = request.getParameter("targetMonth"); //출력할 월
 	System.out.println(targetYear + " <-- targetYear diary.jsp");
@@ -86,8 +62,8 @@
 	int countDiv = startBlank + lastDate;
 	System.out.println(countDiv + " <-- countDiv diary.jsp"); 
 	
-	/* -------------------------캘린더 코드 끝------------------------- */
-	/* -------------------------다이어리 목록 추출하기------------------------- */
+/* -------------------------캘린더 코드 끝------------------------------ */
+/* -------------------------다이어리 목록 추출하기------------------------- */
 	// 1. DB에서 tYear와 tMonth에 해당되는 diary목록을 추철
 	String sql2 = "select diary_date diaryDate, day(diary_date) day, left(title,5) title from diary where year(diary_date)=? and month(diary_date)=?";
 	PreparedStatement stmt2 = null;
@@ -98,6 +74,7 @@
 	System.out.println(stmt2);
 	
 	rs2 = stmt2.executeQuery();
+/* -------------------------다이어리 목록 추출하기 끝------------------------- */
 %>
 <!DOCTYPE html>
 <html>

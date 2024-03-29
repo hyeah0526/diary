@@ -2,36 +2,14 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="java.net.*" %>
 <%
-	/* -------------------------여기부터---------------------------------- */
-	String sql1 = "select my_session mySession from login";
-	//my_session을 mySession의 이름으로 가져옴
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
-	PreparedStatement stmt1 = null;
-	ResultSet rs1 = null;
-	stmt1 = conn.prepareStatement(sql1);
-	rs1 = stmt1.executeQuery();
-	
-	String mySession = null;
-	
-	if(rs1.next()){
-	mySession = rs1.getString("mySession");
-	System.out.println(mySession + "<--mySession"); 
+	/* -------------------------여기부터 로그인 인증분기 코드---------------------------------- */
+	String loginMember = (String)(session.getAttribute("loginMember"));
+	if(loginMember == null){
+		String errMsg = URLEncoder.encode("잘못된 접근입니다. 로그인 먼저 해주세요", "utf-8"); //한글 encode해주기
+		response.sendRedirect("/diary/loginForm.jsp?errMsg="+errMsg); //sendRedirect는 get방식이므로 errMsg는 주소뒤에 붙여서 가져가기
+		return;
 	}
-	
-	if(mySession.equals("OFF")){
-	String errMsg = URLEncoder.encode("잘못된 접근입니다. 로그인 먼저 해주세요", "utf-8"); //한글 encode해주기
-	response.sendRedirect("/diary/loginForm.jsp?errMsg="+errMsg); //sendRedirect는 get방식이므로 errMsg는 주소뒤에 붙여서 가져가기
-	
-	//자원반납
-	//rs1.close();
-	//stmt1.close();
-	//conn.close();
-	return; //코드 진행을 끝내는 문법 ex.메서드 바꿀 때return사용
-	}
-	
-	/* --------------------여기까지는 인증분기코드------------------------- */
+	/* -------------------------여기까지 로그인 인증분기 코드---------------------------------- */
 %>
 <%
 	/* --------------------여기부터가 진짜 작성 코드------------------------- */
@@ -99,6 +77,11 @@
 			width: 40px;
 			height: 40px;
 		}
+		.contentTextarea{
+			background-color: transparent;
+			color: #CEB9AB;
+			border: 2px solid #CEB9AB;
+		}
 	</style>
 </head>
 <body class="backImg">
@@ -136,48 +119,34 @@
 			<!-- 일기작성이 가능하다면 작성하는 폼 -->
 			<h3>일기 작성하기</h3>
 			<form method="post" action="/diary/addDiaryAction.jsp">
-				<div class="row">
-					<div class="col-2">날짜</div>
+					<div class="col">날짜&nbsp;&nbsp;
 					<%
 						if(ck.equals("true")){
 					%>
-							<div class="col">
-							<input type="text" value="<%=checkDate%>" name="checkDate" readonly="readonly">
-							<span><%=msg%></span>
-							</div>
+							<input type="text" value="<%=checkDate%>" name="checkDate" readonly="readonly" class="dateInput mb-2">
+							<br><span><%=msg%></span><br><br>
 					<%	
 						}else{
 					%>
-							<div class="col">
-							<input type="text" value="" name="checkDate" readonly="readonly">
-							<span><%=msg%></span>
-							</div>
+							<input type="text" value="" name="checkDate" readonly="readonly" class="dateInput mb-2">
+							<br><span><%=msg%></span><br><br>
 					<%
 						}
 					%>
 				</div>
-				<div class="row">
-					<div class="col-2">제목</div>
-					<div class="col"><input type="text" name="title"></div>
-				</div>
+				<div class="col">제목&nbsp;&nbsp;<input type="text" name="title" class="dateInput"></div><br>
 				
-				<div class="row">
-					<div class="col-2">날씨</div>
-					<div class="col">
-						<select class="btn addDiaryBtn mb-2" name="weather" style="width: 100px;height: 40px;">
-							<option value="맑음">맑음</option>
-							<option value="흐림">흐림</option>
-							<option value="비">비</option>
-							<option value="눈">눈</option>
-						</select>
-					</div>
-				</div>
+				<div class="col">날씨&nbsp;&nbsp;
+					<select class="btn addDiaryBtn mb-2" name="weather" style="width: 100px;height: 40px;">
+						<option value="맑음">맑음</option>
+						<option value="흐림">흐림</option>
+						<option value="비">비</option>
+						<option value="눈">눈</option>
+					</select>
+				</div><br>
 				
-				<div class="row">
-					<div class="col-2">내용</div>
-					<div class="col">
-						<textarea rows="7" cols="50" name="content" style="width: 100%;"></textarea>
-					</div>
+				<div class="col">내용
+					<textarea rows="7" cols="50" name="content" style="width: 100%;" class="contentTextarea fs-5"></textarea>
 				</div>
 				
 				<div>

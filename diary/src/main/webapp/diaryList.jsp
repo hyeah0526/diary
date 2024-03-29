@@ -3,36 +3,14 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="java.net.*" %>
 <%
-	/* -------------------------여기부터---------------------------------- */
-	String sql1 = "select my_session mySession from login";
-	//my_session을 mySession의 이름으로 가져옴
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
-	PreparedStatement stmt1 = null;
-	ResultSet rs1 = null;
-	stmt1 = conn.prepareStatement(sql1);
-	rs1 = stmt1.executeQuery();
-	
-	String mySession = null;
-	
-	if(rs1.next()){
-	mySession = rs1.getString("mySession");
-	System.out.println(mySession + "<--mySession"); 
+	/* -------------------------여기부터 로그인 인증분기 코드---------------------------------- */
+	String loginMember = (String)(session.getAttribute("loginMember"));
+	if(loginMember == null){
+		String errMsg = URLEncoder.encode("잘못된 접근입니다. 로그인 먼저 해주세요", "utf-8"); //한글 encode해주기
+		response.sendRedirect("/diary/loginForm.jsp?errMsg="+errMsg); //sendRedirect는 get방식이므로 errMsg는 주소뒤에 붙여서 가져가기
+		return;
 	}
-	
-	if(mySession.equals("OFF")){
-	String errMsg = URLEncoder.encode("잘못된 접근입니다. 로그인 먼저 해주세요", "utf-8"); //한글 encode해주기
-	response.sendRedirect("/diary/loginForm.jsp?errMsg="+errMsg); //sendRedirect는 get방식이므로 errMsg는 주소뒤에 붙여서 가져가기
-	
-	//자원반납
-	//rs1.close();
-	//stmt1.close();
-	//conn.close();
-	return; //코드 진행을 끝내는 문법 ex.메서드 바꿀 때return사용
-	}
-	
-	/* --------------------여기까지는 인증분기코드------------------------- */
+	/* -------------------------여기까지 로그인 인증분기 코드---------------------------------- */
 %>
 <%
 	/* --------------------여기부터 리스트코드------------------------- */
@@ -66,6 +44,9 @@
 	String sql2 = "select diary_date diaryDate, title from diary where title like ? order by diary_date desc limit ?, ?";
 	PreparedStatement stmt2 = null;
 	ResultSet rs2 = null;
+	Class.forName("org.mariadb.jdbc.Driver");
+	Connection conn = null;
+	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
 	stmt2 = conn.prepareStatement(sql2);
 	stmt2.setString(1, "%"+serachWord+"%");
 	stmt2.setInt(2, startRow);
