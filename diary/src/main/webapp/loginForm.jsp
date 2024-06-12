@@ -48,8 +48,11 @@
 		.backImg{
 			width: 100%;
 			vertical-align: middle;
+			background-color: #594a47;
+			/*
 			background-image: url("/diary/img/wall1.png");
 			background-color: rgba(0, 0, 0, 0.5);
+			*/
 		}
 		
 		#memberInput{
@@ -85,8 +88,8 @@
 		%>
 		<div class="col mt-5" style="text-align: center;"><h1>일기장 로그인</h1></div>
 		<form method="post" action="/diary/loginAction.jsp">
-			<div class="fs-4">memberId <input type="text" name="memberId" id="memberInput"></div><br>
-			<div class="fs-4">memberPw <input type="password" name="memberPw" id="memberInput"> </div><Br>
+			<div class="fs-4">memberId <input type="text" name="memberId" id="memberInput" value="admin"></div><br>
+			<div class="fs-4">memberPw <input type="password" name="memberPw" id="memberInput" value="1234"> </div><Br>
 			<div><button type="submit" class="btn addDiaryBtn">로그인</button></div>
 		</form>
 	</div>

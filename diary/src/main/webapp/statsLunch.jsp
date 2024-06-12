@@ -59,8 +59,11 @@
 		.backImg{
 			width: 100%;
 			vertical-align: middle;
+			background-color: #594a47;
+			/*
 			background-image: url("/diary/img/wall1.png");
 			background-color: rgba(0, 0, 0, 0.5);
+			*/
 		}
 		.icon{
 			width: 40px;

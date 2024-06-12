@@ -57,8 +57,11 @@
 		.backImg{
 			width: 100%;
 			vertical-align: middle;
+			background-color: #594a47;
+			/*
 			background-image: url("/diary/img/wall1.png");
 			background-color: rgba(0, 0, 0, 0.5);
+			*/
 		}
 		.addDiaryBtn{
 			background-color: transparent;
@@ -122,6 +125,7 @@
 					<div class="col fs-5">날짜&nbsp;&nbsp;
 					<%
 						if(ck.equals("true")){
+							System.out.println("여기걸려?");
 					%>
 							<input type="text" value="<%=checkDate%>" name="checkDate" readonly="readonly" class="dateInput mb-2">
 							<br><span><%=msg%></span><br><br>
