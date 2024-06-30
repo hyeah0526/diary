@@ -1,3 +1,4 @@
+<%@page import="dao.DBHelper"%>
 <%@page import="org.apache.catalina.ha.backend.Sender"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
@@ -22,10 +23,8 @@
 		update_date = NOW()
 		WHERE diary_date = '2024-03-22';
 	*/
-	Class.forName("org.mariadb.jdbc.Driver");
 	String sql1 = "update diary set title = ?, feeling = ?, weather = ?, content = ?, update_date = NOW() WHERE diary_date = ?";
-	Connection conn = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
+	Connection conn = DBHelper.getConnection();
 	PreparedStatement stmt1 = null;
 	stmt1 = conn.prepareStatement(sql1);
 	stmt1.setString(1, title);

@@ -1,3 +1,4 @@
+<%@page import="dao.DBHelper"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.net.*" %>
@@ -21,9 +22,7 @@
 		GROUP BY menu
 		ORDER BY COUNT(*) DESC;
 	*/
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
+	Connection conn = DBHelper.getConnection();
 	String sql2 = "select menu, count(*) cnt from lunch group by menu";
 	PreparedStatement stmt2 = null;
 	ResultSet rs2 = null;

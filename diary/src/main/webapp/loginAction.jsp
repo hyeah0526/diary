@@ -1,3 +1,4 @@
+<%@page import="dao.DBHelper"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.net.*" %>
@@ -15,9 +16,7 @@
 	String memberId = request.getParameter("memberId");
 	String memberPw = request.getParameter("memberPw");
 	
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
+	Connection conn = DBHelper.getConnection();
 	String sql2 = "select member_id memberId from member where member_id = ? and member_pw = ?";
 	PreparedStatement stmt2 = null;
 	ResultSet rs2 = null;

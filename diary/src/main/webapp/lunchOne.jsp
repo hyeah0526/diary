@@ -1,3 +1,4 @@
+<%@page import="dao.DBHelper"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.net.*" %>
@@ -25,9 +26,7 @@
 		FROM lunch
 		WHERE lunch_date = '2024-03-14';
 	*/
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
+	Connection conn = DBHelper.getConnection();
 	String sql2 = "select * from lunch where lunch_date = ?";
 	PreparedStatement stmt2 = null;
 	ResultSet rs2 = null;

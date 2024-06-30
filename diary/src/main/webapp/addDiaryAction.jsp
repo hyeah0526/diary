@@ -1,3 +1,4 @@
+<%@ page import="dao.DBHelper"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
 <%
@@ -7,6 +8,14 @@
 	String weather = request.getParameter("weather");
 	String content = request.getParameter("content");
 	String feeling = request.getParameter("feeling");
+	
+	// 유효성
+	if(diaryDate == null || feeling == null || title.equals("") || content.equals("") || diaryDate.equals("")){
+		String enterErr = "fail";
+		response.sendRedirect("/diary/addDiaryForm.jsp?enterErr="+enterErr);
+		return;
+	}
+	
 	System.out.println(diaryDate + "< --- diaryDate addDiraryAction");
 	System.out.println(title + "< --- title addDiraryAction");
 	System.out.println(weather + "< --- weather addDiraryAction");
@@ -14,9 +23,7 @@
 	System.out.println(feeling + "< --- feeling addDiraryAction");
 
 	String sql = "INSERT INTO diary(diary_date, feeling,title, weather, content, update_date, create_date) VALUES (?, ?, ?, ?, ?, NOW(), NOW())";
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
+	Connection conn = DBHelper.getConnection();
 	PreparedStatement stmt = null;
 	stmt = conn.prepareStatement(sql);
 	stmt.setString(1, diaryDate);

@@ -1,3 +1,4 @@
+<%@page import="dao.DBHelper"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%
@@ -6,9 +7,7 @@
 	System.out.println(commentNo + " <-- commentNo deleteCommentAction.jsp");
 	System.out.println(diaryDate + " <-- diaryDate deleteCommentAction.jsp");
 	
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
+	Connection conn = DBHelper.getConnection();
 	
 	String sql = "delete from comment where comment_no = ?";
 	PreparedStatement stmt = null;

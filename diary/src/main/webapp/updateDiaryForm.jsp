@@ -1,3 +1,4 @@
+<%@page import="dao.DBHelper"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.net.*" %>
@@ -16,9 +17,7 @@
 	String diaryDate = request.getParameter("diaryDate");
 	System.out.println(diaryDate+" <--diaryDate updateDiaryForm");
 	
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
+	Connection conn = DBHelper.getConnection();
 	String sql2 = "select * from diary where diary_date = ?";
 	PreparedStatement stmt2 = null;
 	ResultSet rs2 = null;
@@ -145,7 +144,7 @@
 					
 					<div class="col fs-5">변경할 기분&nbsp;&nbsp;<br>
 						
-						<input type="radio" name="feeling" value="&#128512;" id="feeling1">
+						<input type="radio" name="feeling" value="&#128512;" id="feeling1" checked="checked">
 							<label for="feeling1" class="fs-3">&#128512;</label>&nbsp;&nbsp;&nbsp;
 							
 						<input type="radio" name="feeling" value="&#128520;" id="feeling2">

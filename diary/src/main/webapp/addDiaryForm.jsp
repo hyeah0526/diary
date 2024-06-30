@@ -15,6 +15,7 @@
 	/* --------------------여기부터가 진짜 작성 코드------------------------- */
 	String checkDate = request.getParameter("checkDate");
 	String ck = request.getParameter("ck");
+	String enterErr = request.getParameter("enterErr");
 	System.out.println(checkDate + " <-- checkDate");
 	System.out.println(ck + " <-- ck");
 	
@@ -31,6 +32,10 @@
 		msg = "일기 작성 가능한 날짜입니다.";
 	}else if(ck.equals("false")){
 		msg = "이미 일기가 작성되어 입력이 불가능한 날짜입니다.";
+	}
+	
+	if(enterErr != null){
+		enterErr = "등록에 실패하였습니다. 모든 정보를 입력해주세요";
 	}
 %>
 <!DOCTYPE html>
@@ -103,17 +108,17 @@
 			<a href="/diary/addDiaryForm.jsp"><img src="/diary/img/dairy_pen.png" class="icon"></a>&nbsp;&nbsp;&nbsp;
 			<a href="/diary/statsLunch.jsp"><img src="/diary/img/lunch.png" class="icon"></a>&nbsp;&nbsp;&nbsp;
 			<a href="/diary/logout.jsp"><img src="/diary/img/logout.png" class="icon"></a><br><br>
-			
-			<br>디버깅 코드 확인용 <br>
-			checkDate :: <%=checkDate%><br>
-			ck값 :: <%=ck%><hr>
-		
+			<!--  
+				<br>디버깅 코드 확인용 <br>
+				checkDate :: <%=checkDate%><br>
+				ck값 :: <%=ck%><hr>
+			-->
 			<!-- 해당 날짜에 일기가 있는지 확인하는 폼 -->
 			<h5>작성 가능 날짜 확인</h5>
 			<form method="post" action="/diary/checkDateAction.jsp">
 				<div>
 						<input class="dateInput" type="date" name="checkDate" value="<%=checkDate%>">
-						<span><%=msg%></span>
+						<br><span><%=msg%></span>
 						&nbsp;<button class="addDiaryBtn p-1" type="submit"> &#10004; 날짜 확인</button>
 				</div>
 			</form>
@@ -121,6 +126,13 @@
 			<hr>
 			<!-- 일기작성이 가능하다면 작성하는 폼 -->
 			<h3>일기 작성하기</h3>
+			<%
+				if(enterErr != null){
+			%>
+					<div><%=enterErr%></div>
+			<%
+				}
+			%>
 			<form method="post" action="/diary/addDiaryAction.jsp">
 					<div class="col fs-5">날짜&nbsp;&nbsp;
 					<%
@@ -128,12 +140,10 @@
 							System.out.println("여기걸려?");
 					%>
 							<input type="text" value="<%=checkDate%>" name="checkDate" readonly="readonly" class="dateInput mb-2">
-							<br><span><%=msg%></span><br><br>
 					<%	
 						}else{
 					%>
 							<input type="text" value="" name="checkDate" readonly="readonly" class="dateInput mb-2">
-							<br><span><%=msg%></span><br><br>
 					<%
 						}
 					%>
