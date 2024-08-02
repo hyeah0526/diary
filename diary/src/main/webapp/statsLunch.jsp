@@ -28,6 +28,8 @@
 	ResultSet rs2 = null;
 	stmt2 = conn.prepareStatement(sql2);
 	rs2 = stmt2.executeQuery();
+	
+	conn.close();
 	/* -------------------------여기까지 통계데이터 가져오기------------------------------ */
 %>
 <!DOCTYPE html>

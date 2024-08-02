@@ -27,6 +27,8 @@
 	
 	rs2 = stmt2.executeQuery();
 	
+	conn.close();
+	
 	/* --------------------값 가져오기------------------------- */
 %>
 <!DOCTYPE html>

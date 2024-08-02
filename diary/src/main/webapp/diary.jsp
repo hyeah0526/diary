@@ -73,6 +73,7 @@
 	System.out.println(stmt2);
 	
 	rs2 = stmt2.executeQuery();
+	conn.close();
 /* -------------------------다이어리 목록 추출하기 끝------------------------- */
 %>
 <!DOCTYPE html>

@@ -217,6 +217,7 @@
 				</div>
 		<%
 			}
+		conn.close();
 		%>
 		</div>
 		<div class="col"></div>

@@ -40,9 +40,11 @@
 	if(row == 1){
 		System.out.println("수정성공");
 		response.sendRedirect("/diary/diary.jsp");
+		conn.close();
 	}else{
 		System.out.println("수정실패");
 		response.sendRedirect("/diary/diaryOne.jsp?diaryDate="+diaryDate);
+		conn.close();
 	}
 	
 %>

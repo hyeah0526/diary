@@ -33,15 +33,13 @@
 		//session 로그인 성공시 DB값 설정해서 session변수 설정
 		session.setAttribute("loginMember", rs2.getString("memberId"));
 		response.sendRedirect("/diary/diary.jsp");
+		conn.close();
 	}else{
 		//로그인 실패
 		System.out.println("로그인 실패");
 		String errMsg = URLEncoder.encode("아이디와 비밀번호를 확인해주세요", "utf-8");
 		response.sendRedirect("/diary/loginForm.jsp?errMsg="+errMsg);
+		conn.close();
 	}
 	
-	//자원 반납
-	//rs2.close();
-	//stmt2.close();
-	//conn.close();
 %>

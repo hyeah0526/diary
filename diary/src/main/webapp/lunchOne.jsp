@@ -35,6 +35,7 @@
 	rs2 = stmt2.executeQuery();
 	System.out.println(stmt2);
 	
+	conn.close();
 	/* -------------------------여기까지 런치 투표값이 있는지 확인----------------------------- */
 %>
 <!DOCTYPE html>

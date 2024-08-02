@@ -28,10 +28,12 @@
 		System.out.println("삭제성공 deleteLunchAction.jsp");
 		msg = "delete done";
 		response.sendRedirect("/diary/lunchOne.jsp?diaryDate="+diaryDate+"&msg="+msg);
+		conn.close();
 	}else{
 		System.out.println("삭제실패 deleteLunchAction.jsp");
 		msg = "delete false";
 		response.sendRedirect("/diary/lunchOne.jsp?diaryDate="+diaryDate+"&msg="+msg);
+		conn.close();
 	}	
 	
 	

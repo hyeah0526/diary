@@ -82,6 +82,8 @@
 		lastPage = lastPage+1;
 	}
 	
+	conn.close();
+	
 	System.out.println(currentPage + " <--currentPage");
 	System.out.println(rowPerPage + " <--rowPerPage");
 	System.out.println(selectRow + " <--selectRow");

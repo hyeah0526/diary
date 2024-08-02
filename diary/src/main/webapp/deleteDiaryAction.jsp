@@ -19,9 +19,14 @@
 	if(row == 1){
 		System.out.println("삭제성공");
 		response.sendRedirect("/diary/diary.jsp");
+		stmt1.close();
+		conn.close();
+		
 	}else{
 		System.out.println("삭제실패");
 		response.sendRedirect("/diary/diaryOne.jsp?diaryDate="+diaryDate);
+		stmt1.close();
+		conn.close();
 	}
 	
 %>
